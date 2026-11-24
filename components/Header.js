@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { appName } from '@/lib/config'
+import { isCurrentPath } from '@/lib/nav'
 
 const links = [
   { href: '/', label: 'TODO' },
@@ -19,11 +20,12 @@ export default function Header() {
       <span className="app-name">{appName}</span>
       <nav>
         {links.map((link) => (
+	  const isCurrent = isCurrentPath(pathname,link.pref)
           <Link
             key={link.href}
             href={link.href}
-            className={pathname === link.href ? 'nav-link active' : 'nav-link'}
-            aria-current={pathname === link.href ? 'page' : undefined}
+            className={isCurrent ? 'nav-link active' : 'nav-link'}
+            aria-current={isCurrent ? 'page' : undefined}
           >
             {link.label}
           </Link>
